@@ -30,19 +30,25 @@ namespace BusquedaJson
         public static string GetJsonFromFile()
         {
 
-             Console.WriteLine("Digite la ubicacion del archivo ");
-             string path = Console.ReadLine();
+            Console.WriteLine("\nDigite la ubicacion del archivo: ");
+            string path = Console.ReadLine();
+            
+            while(path == "")
+            {
+                Console.WriteLine("\nDigite una ubicacion valida: ");
+                path = Console.ReadLine();
+            }
 
-             Console.Clear();
+            Console.Clear();
 
 
-             string json;
-             using (var reader = new StreamReader(path))
-             {
-                 json = reader.ReadToEnd();
-             }
+            string json;
+            using (var reader = new StreamReader(path))
+            {
+                json = reader.ReadToEnd();
+            }
 
-             return json;
+            return json;
         }
 
         public static void DeserializeJsonFile(string json)
