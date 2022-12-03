@@ -2,11 +2,8 @@
 using busquedaJsonClass;
 using Newtonsoft.Json;
 
-
-
 namespace BusquedaJson
 {
-
     class Program
     {
         static void Main(string[] args)
