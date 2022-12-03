@@ -16,6 +16,7 @@ namespace busquedaJsonClass
 
         public override object VisitDatos([NotNull] busquedaJsonParser.DatosContext context)
         {
+            Console.WriteLine($"\"{context.GetText()}\"");
             return base.VisitDatos(context);
         }
 
