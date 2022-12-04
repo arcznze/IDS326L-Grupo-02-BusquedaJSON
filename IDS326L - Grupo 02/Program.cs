@@ -1,6 +1,7 @@
 ﻿using Antlr4.Runtime;
 using busquedaJsonClass;
-using Newtonsoft.Json;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace BusquedaJson
 {
@@ -8,46 +9,28 @@ namespace BusquedaJson
     {
         static void Main(string[] args)
         {
-            //string input = "5*6+9*3-1";
-            //Console.WriteLine($"Input: {input}\n");
+            var expresion = "menu.popup.menuitem[1]";
 
-            //ICharStream stream = CharStreams.fromString(input);
-            //busquedaJsonLexer lexer = new busquedaJsonLexer(stream);
-            //CommonTokenStream tokens = new CommonTokenStream(lexer);
-            //busquedaJsonParser parser = new busquedaJsonParser(tokens);
-            //var tree = parser.aritmetica();
+            Console.WriteLine("Digite su expresion: ");
+            expresion = Console.ReadLine();
 
-            //Aritmetica aritmetica = new Aritmetica();
-            //int res = aritmetica.Visit(tree);
+            var inputStream = new AntlrInputStream(expresion);
+            var busquedaJsonLexer = new busquedaJsonLexer(inputStream);
+            var commonTokenStream = new CommonTokenStream(busquedaJsonLexer);
+            var busquedaJsonParser = new busquedaJsonParser(commonTokenStream);
+            var busquedaJsonContext = busquedaJsonParser.program();
+            var visitor = new busquedaJson();
+            visitor.Visit(busquedaJsonContext);
 
-            var json = GetJsonFromFile();
-            DeserializeJsonFile(json);
-
-            ICharStream stream = CharStreams.fromString(json);
-
-            busquedaJsonLexer lexer = new busquedaJsonLexer(stream);
-            CommonTokenStream tokens = new CommonTokenStream(lexer);
-            busquedaJsonParser parser = new busquedaJsonParser(tokens);
-            var tree = parser.program();
-
-            busquedaJson busquedajson = new busquedaJson();
-            int res = busquedajson.Visit(tree);
-
+            GetJson(expresion);
         }
-        public static string GetJsonFromFile()
+        public static string GetJson(string expresion)
         {
-
             Console.WriteLine("\nDigite la ubicacion del archivo: ");
             string path = Console.ReadLine();
-            
-            while(path == "")
-            {
-                Console.WriteLine("\nDigite una ubicacion valida: ");
-                path = Console.ReadLine();
-            }
+
 
             Console.Clear();
-
 
             string json;
             using (var reader = new StreamReader(path))
@@ -55,13 +38,23 @@ namespace BusquedaJson
                 json = reader.ReadToEnd();
             }
 
-            return json;
-        }
+            JsonNode jsonNode = JsonNode.Parse(json)!;
 
-        public static void DeserializeJsonFile(string json)
-        {
-             Console.WriteLine(json);
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            var res = jsonNode!.ToJsonString(options);
 
+            JsonNode resultado = jsonNode![expresion]!;
+            Console.WriteLine($"JSON={resultado.ToJsonString()}");
+
+            //JsonNode document = JsonNode.Parse(json)!;
+
+            //JsonNode root = document.Root;
+
+
+
+
+            return "";
         }
+      
     }
 }
