@@ -36,19 +36,18 @@ public partial class busquedaJsonParser : Parser {
 	protected static DFA[] decisionToDFA;
 	protected static PredictionContextCache sharedContextCache = new PredictionContextCache();
 	public const int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, STRING=7, TEXTO=8, WS=9;
+		T__0=1, T__1=2, TEXTO=3, NUMERO=4, PUNTO=5, WS=6;
 	public const int
-		RULE_program = 0, RULE_json = 1, RULE_objeto = 2, RULE_datos = 3, RULE_array = 4, 
-		RULE_valor = 5;
+		RULE_program = 0, RULE_input = 1;
 	public static readonly string[] ruleNames = {
-		"program", "json", "objeto", "datos", "array", "valor"
+		"program", "input"
 	};
 
 	private static readonly string[] _LiteralNames = {
-		null, "'{'", "','", "'}'", "':'", "'['", "']'"
+		null, "'['", "']'", null, null, "'.'"
 	};
 	private static readonly string[] _SymbolicNames = {
-		null, null, null, null, null, null, null, "STRING", "TEXTO", "WS"
+		null, null, null, "TEXTO", "NUMERO", "PUNTO", "WS"
 	};
 	public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);
 
@@ -83,12 +82,8 @@ public partial class busquedaJsonParser : Parser {
 	}
 
 	public partial class ProgramContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode Eof() { return GetToken(busquedaJsonParser.Eof, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public JsonContext[] json() {
-			return GetRuleContexts<JsonContext>();
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public JsonContext json(int i) {
-			return GetRuleContext<JsonContext>(i);
+		[System.Diagnostics.DebuggerNonUserCode] public InputContext input() {
+			return GetRuleContext<InputContext>(0);
 		}
 		public ProgramContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -107,330 +102,94 @@ public partial class busquedaJsonParser : Parser {
 	public ProgramContext program() {
 		ProgramContext _localctx = new ProgramContext(Context, State);
 		EnterRule(_localctx, 0, RULE_program);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 4;
+			input();
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class InputContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] TEXTO() { return GetTokens(busquedaJsonParser.TEXTO); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TEXTO(int i) {
+			return GetToken(busquedaJsonParser.TEXTO, i);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] PUNTO() { return GetTokens(busquedaJsonParser.PUNTO); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PUNTO(int i) {
+			return GetToken(busquedaJsonParser.PUNTO, i);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] NUMERO() { return GetTokens(busquedaJsonParser.NUMERO); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NUMERO(int i) {
+			return GetToken(busquedaJsonParser.NUMERO, i);
+		}
+		public InputContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_input; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IbusquedaJsonVisitor<TResult> typedVisitor = visitor as IbusquedaJsonVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitInput(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public InputContext input() {
+		InputContext _localctx = new InputContext(Context, State);
+		EnterRule(_localctx, 2, RULE_input);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 13;
+			State = 6;
+			Match(TEXTO);
+			State = 11;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
-			do {
+			while (_la==PUNTO) {
 				{
 				{
-				State = 12;
-				json();
+				State = 7;
+				Match(PUNTO);
+				State = 8;
+				Match(TEXTO);
 				}
 				}
-				State = 15;
+				State = 13;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__4) | (1L << STRING))) != 0) );
-			State = 17;
-			Match(Eof);
 			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
-	public partial class JsonContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ValorContext valor() {
-			return GetRuleContext<ValorContext>(0);
-		}
-		public JsonContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_json; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IbusquedaJsonVisitor<TResult> typedVisitor = visitor as IbusquedaJsonVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitJson(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
-
-	[RuleVersion(0)]
-	public JsonContext json() {
-		JsonContext _localctx = new JsonContext(Context, State);
-		EnterRule(_localctx, 2, RULE_json);
-		try {
-			EnterOuterAlt(_localctx, 1);
-			{
 			State = 19;
-			valor();
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
-	public partial class ObjetoContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public DatosContext[] datos() {
-			return GetRuleContexts<DatosContext>();
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public DatosContext datos(int i) {
-			return GetRuleContext<DatosContext>(i);
-		}
-		public ObjetoContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_objeto; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IbusquedaJsonVisitor<TResult> typedVisitor = visitor as IbusquedaJsonVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitObjeto(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
-
-	[RuleVersion(0)]
-	public ObjetoContext objeto() {
-		ObjetoContext _localctx = new ObjetoContext(Context, State);
-		EnterRule(_localctx, 4, RULE_objeto);
-		int _la;
-		try {
-			State = 34;
 			ErrorHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(TokenStream,2,Context) ) {
-			case 1:
-				EnterOuterAlt(_localctx, 1);
+			_la = TokenStream.LA(1);
+			while (_la==T__0) {
 				{
+				{
+				State = 14;
+				Match(T__0);
+				State = 15;
+				Match(NUMERO);
+				State = 16;
+				Match(T__1);
+				}
+				}
 				State = 21;
-				Match(T__0);
-				State = 22;
-				datos();
-				State = 27;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
-				while (_la==T__1) {
-					{
-					{
-					State = 23;
-					Match(T__1);
-					State = 24;
-					datos();
-					}
-					}
-					State = 29;
-					ErrorHandler.Sync(this);
-					_la = TokenStream.LA(1);
-				}
-				State = 30;
-				Match(T__2);
-				}
-				break;
-			case 2:
-				EnterOuterAlt(_localctx, 2);
-				{
-				State = 32;
-				Match(T__0);
-				State = 33;
-				Match(T__2);
-				}
-				break;
 			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
-	public partial class DatosContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING() { return GetToken(busquedaJsonParser.STRING, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ValorContext valor() {
-			return GetRuleContext<ValorContext>(0);
-		}
-		public DatosContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_datos; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IbusquedaJsonVisitor<TResult> typedVisitor = visitor as IbusquedaJsonVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitDatos(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
-
-	[RuleVersion(0)]
-	public DatosContext datos() {
-		DatosContext _localctx = new DatosContext(Context, State);
-		EnterRule(_localctx, 6, RULE_datos);
-		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 36;
-			Match(STRING);
-			State = 37;
-			Match(T__3);
-			State = 38;
-			valor();
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
-	public partial class ArrayContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ValorContext[] valor() {
-			return GetRuleContexts<ValorContext>();
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public ValorContext valor(int i) {
-			return GetRuleContext<ValorContext>(i);
-		}
-		public ArrayContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_array; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IbusquedaJsonVisitor<TResult> typedVisitor = visitor as IbusquedaJsonVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitArray(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
-
-	[RuleVersion(0)]
-	public ArrayContext array() {
-		ArrayContext _localctx = new ArrayContext(Context, State);
-		EnterRule(_localctx, 8, RULE_array);
-		int _la;
-		try {
-			State = 53;
-			ErrorHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(TokenStream,4,Context) ) {
-			case 1:
-				EnterOuterAlt(_localctx, 1);
-				{
-				State = 40;
-				Match(T__4);
-				State = 41;
-				valor();
-				State = 46;
-				ErrorHandler.Sync(this);
-				_la = TokenStream.LA(1);
-				while (_la==T__1) {
-					{
-					{
-					State = 42;
-					Match(T__1);
-					State = 43;
-					valor();
-					}
-					}
-					State = 48;
-					ErrorHandler.Sync(this);
-					_la = TokenStream.LA(1);
-				}
-				State = 49;
-				Match(T__5);
-				}
-				break;
-			case 2:
-				EnterOuterAlt(_localctx, 2);
-				{
-				State = 51;
-				Match(T__4);
-				State = 52;
-				Match(T__5);
-				}
-				break;
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
-	public partial class ValorContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING() { return GetToken(busquedaJsonParser.STRING, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ObjetoContext objeto() {
-			return GetRuleContext<ObjetoContext>(0);
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public ArrayContext array() {
-			return GetRuleContext<ArrayContext>(0);
-		}
-		public ValorContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_valor; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IbusquedaJsonVisitor<TResult> typedVisitor = visitor as IbusquedaJsonVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitValor(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
-
-	[RuleVersion(0)]
-	public ValorContext valor() {
-		ValorContext _localctx = new ValorContext(Context, State);
-		EnterRule(_localctx, 10, RULE_valor);
-		try {
-			State = 58;
-			ErrorHandler.Sync(this);
-			switch (TokenStream.LA(1)) {
-			case STRING:
-				EnterOuterAlt(_localctx, 1);
-				{
-				State = 55;
-				Match(STRING);
-				}
-				break;
-			case T__0:
-				EnterOuterAlt(_localctx, 2);
-				{
-				State = 56;
-				objeto();
-				}
-				break;
-			case T__4:
-				EnterOuterAlt(_localctx, 3);
-				{
-				State = 57;
-				array();
-				}
-				break;
-			default:
-				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -446,55 +205,25 @@ public partial class busquedaJsonParser : Parser {
 
 	private static char[] _serializedATN = {
 		'\x3', '\x608B', '\xA72A', '\x8133', '\xB9ED', '\x417C', '\x3BE7', '\x7786', 
-		'\x5964', '\x3', '\v', '?', '\x4', '\x2', '\t', '\x2', '\x4', '\x3', '\t', 
-		'\x3', '\x4', '\x4', '\t', '\x4', '\x4', '\x5', '\t', '\x5', '\x4', '\x6', 
-		'\t', '\x6', '\x4', '\a', '\t', '\a', '\x3', '\x2', '\x6', '\x2', '\x10', 
-		'\n', '\x2', '\r', '\x2', '\xE', '\x2', '\x11', '\x3', '\x2', '\x3', '\x2', 
-		'\x3', '\x3', '\x3', '\x3', '\x3', '\x4', '\x3', '\x4', '\x3', '\x4', 
-		'\x3', '\x4', '\a', '\x4', '\x1C', '\n', '\x4', '\f', '\x4', '\xE', '\x4', 
-		'\x1F', '\v', '\x4', '\x3', '\x4', '\x3', '\x4', '\x3', '\x4', '\x3', 
-		'\x4', '\x5', '\x4', '%', '\n', '\x4', '\x3', '\x5', '\x3', '\x5', '\x3', 
-		'\x5', '\x3', '\x5', '\x3', '\x6', '\x3', '\x6', '\x3', '\x6', '\x3', 
-		'\x6', '\a', '\x6', '/', '\n', '\x6', '\f', '\x6', '\xE', '\x6', '\x32', 
-		'\v', '\x6', '\x3', '\x6', '\x3', '\x6', '\x3', '\x6', '\x3', '\x6', '\x5', 
-		'\x6', '\x38', '\n', '\x6', '\x3', '\a', '\x3', '\a', '\x3', '\a', '\x5', 
-		'\a', '=', '\n', '\a', '\x3', '\a', '\x2', '\x2', '\b', '\x2', '\x4', 
-		'\x6', '\b', '\n', '\f', '\x2', '\x2', '\x2', '?', '\x2', '\xF', '\x3', 
-		'\x2', '\x2', '\x2', '\x4', '\x15', '\x3', '\x2', '\x2', '\x2', '\x6', 
-		'$', '\x3', '\x2', '\x2', '\x2', '\b', '&', '\x3', '\x2', '\x2', '\x2', 
-		'\n', '\x37', '\x3', '\x2', '\x2', '\x2', '\f', '<', '\x3', '\x2', '\x2', 
-		'\x2', '\xE', '\x10', '\x5', '\x4', '\x3', '\x2', '\xF', '\xE', '\x3', 
-		'\x2', '\x2', '\x2', '\x10', '\x11', '\x3', '\x2', '\x2', '\x2', '\x11', 
-		'\xF', '\x3', '\x2', '\x2', '\x2', '\x11', '\x12', '\x3', '\x2', '\x2', 
-		'\x2', '\x12', '\x13', '\x3', '\x2', '\x2', '\x2', '\x13', '\x14', '\a', 
-		'\x2', '\x2', '\x3', '\x14', '\x3', '\x3', '\x2', '\x2', '\x2', '\x15', 
-		'\x16', '\x5', '\f', '\a', '\x2', '\x16', '\x5', '\x3', '\x2', '\x2', 
-		'\x2', '\x17', '\x18', '\a', '\x3', '\x2', '\x2', '\x18', '\x1D', '\x5', 
-		'\b', '\x5', '\x2', '\x19', '\x1A', '\a', '\x4', '\x2', '\x2', '\x1A', 
-		'\x1C', '\x5', '\b', '\x5', '\x2', '\x1B', '\x19', '\x3', '\x2', '\x2', 
-		'\x2', '\x1C', '\x1F', '\x3', '\x2', '\x2', '\x2', '\x1D', '\x1B', '\x3', 
-		'\x2', '\x2', '\x2', '\x1D', '\x1E', '\x3', '\x2', '\x2', '\x2', '\x1E', 
-		' ', '\x3', '\x2', '\x2', '\x2', '\x1F', '\x1D', '\x3', '\x2', '\x2', 
-		'\x2', ' ', '!', '\a', '\x5', '\x2', '\x2', '!', '%', '\x3', '\x2', '\x2', 
-		'\x2', '\"', '#', '\a', '\x3', '\x2', '\x2', '#', '%', '\a', '\x5', '\x2', 
-		'\x2', '$', '\x17', '\x3', '\x2', '\x2', '\x2', '$', '\"', '\x3', '\x2', 
-		'\x2', '\x2', '%', '\a', '\x3', '\x2', '\x2', '\x2', '&', '\'', '\a', 
-		'\t', '\x2', '\x2', '\'', '(', '\a', '\x6', '\x2', '\x2', '(', ')', '\x5', 
-		'\f', '\a', '\x2', ')', '\t', '\x3', '\x2', '\x2', '\x2', '*', '+', '\a', 
-		'\a', '\x2', '\x2', '+', '\x30', '\x5', '\f', '\a', '\x2', ',', '-', '\a', 
-		'\x4', '\x2', '\x2', '-', '/', '\x5', '\f', '\a', '\x2', '.', ',', '\x3', 
-		'\x2', '\x2', '\x2', '/', '\x32', '\x3', '\x2', '\x2', '\x2', '\x30', 
-		'.', '\x3', '\x2', '\x2', '\x2', '\x30', '\x31', '\x3', '\x2', '\x2', 
-		'\x2', '\x31', '\x33', '\x3', '\x2', '\x2', '\x2', '\x32', '\x30', '\x3', 
-		'\x2', '\x2', '\x2', '\x33', '\x34', '\a', '\b', '\x2', '\x2', '\x34', 
-		'\x38', '\x3', '\x2', '\x2', '\x2', '\x35', '\x36', '\a', '\a', '\x2', 
-		'\x2', '\x36', '\x38', '\a', '\b', '\x2', '\x2', '\x37', '*', '\x3', '\x2', 
-		'\x2', '\x2', '\x37', '\x35', '\x3', '\x2', '\x2', '\x2', '\x38', '\v', 
-		'\x3', '\x2', '\x2', '\x2', '\x39', '=', '\a', '\t', '\x2', '\x2', ':', 
-		'=', '\x5', '\x6', '\x4', '\x2', ';', '=', '\x5', '\n', '\x6', '\x2', 
-		'<', '\x39', '\x3', '\x2', '\x2', '\x2', '<', ':', '\x3', '\x2', '\x2', 
-		'\x2', '<', ';', '\x3', '\x2', '\x2', '\x2', '=', '\r', '\x3', '\x2', 
-		'\x2', '\x2', '\b', '\x11', '\x1D', '$', '\x30', '\x37', '<',
+		'\x5964', '\x3', '\b', '\x19', '\x4', '\x2', '\t', '\x2', '\x4', '\x3', 
+		'\t', '\x3', '\x3', '\x2', '\x3', '\x2', '\x3', '\x3', '\x3', '\x3', '\x3', 
+		'\x3', '\a', '\x3', '\f', '\n', '\x3', '\f', '\x3', '\xE', '\x3', '\xF', 
+		'\v', '\x3', '\x3', '\x3', '\x3', '\x3', '\x3', '\x3', '\a', '\x3', '\x14', 
+		'\n', '\x3', '\f', '\x3', '\xE', '\x3', '\x17', '\v', '\x3', '\x3', '\x3', 
+		'\x2', '\x2', '\x4', '\x2', '\x4', '\x2', '\x2', '\x2', '\x18', '\x2', 
+		'\x6', '\x3', '\x2', '\x2', '\x2', '\x4', '\b', '\x3', '\x2', '\x2', '\x2', 
+		'\x6', '\a', '\x5', '\x4', '\x3', '\x2', '\a', '\x3', '\x3', '\x2', '\x2', 
+		'\x2', '\b', '\r', '\a', '\x5', '\x2', '\x2', '\t', '\n', '\a', '\a', 
+		'\x2', '\x2', '\n', '\f', '\a', '\x5', '\x2', '\x2', '\v', '\t', '\x3', 
+		'\x2', '\x2', '\x2', '\f', '\xF', '\x3', '\x2', '\x2', '\x2', '\r', '\v', 
+		'\x3', '\x2', '\x2', '\x2', '\r', '\xE', '\x3', '\x2', '\x2', '\x2', '\xE', 
+		'\x15', '\x3', '\x2', '\x2', '\x2', '\xF', '\r', '\x3', '\x2', '\x2', 
+		'\x2', '\x10', '\x11', '\a', '\x3', '\x2', '\x2', '\x11', '\x12', '\a', 
+		'\x6', '\x2', '\x2', '\x12', '\x14', '\a', '\x4', '\x2', '\x2', '\x13', 
+		'\x10', '\x3', '\x2', '\x2', '\x2', '\x14', '\x17', '\x3', '\x2', '\x2', 
+		'\x2', '\x15', '\x13', '\x3', '\x2', '\x2', '\x2', '\x15', '\x16', '\x3', 
+		'\x2', '\x2', '\x2', '\x16', '\x5', '\x3', '\x2', '\x2', '\x2', '\x17', 
+		'\x15', '\x3', '\x2', '\x2', '\x2', '\x4', '\r', '\x15',
 	};
 
 	public static readonly ATN _ATN =

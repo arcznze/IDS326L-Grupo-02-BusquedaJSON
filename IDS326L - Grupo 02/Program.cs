@@ -28,7 +28,7 @@ namespace BusquedaJson
             busquedaJsonLexer lexer = new busquedaJsonLexer(stream);
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             busquedaJsonParser parser = new busquedaJsonParser(tokens);
-            var tree = parser.busquedaJson();
+            var tree = parser.program();
 
             busquedaJson busquedajson = new busquedaJson();
             int res = busquedajson.Visit(tree);

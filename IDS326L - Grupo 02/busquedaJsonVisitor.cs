@@ -38,33 +38,9 @@ public interface IbusquedaJsonVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitProgram([NotNull] busquedaJsonParser.ProgramContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="busquedaJsonParser.json"/>.
+	/// Visit a parse tree produced by <see cref="busquedaJsonParser.input"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitJson([NotNull] busquedaJsonParser.JsonContext context);
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="busquedaJsonParser.objeto"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitObjeto([NotNull] busquedaJsonParser.ObjetoContext context);
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="busquedaJsonParser.datos"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitDatos([NotNull] busquedaJsonParser.DatosContext context);
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="busquedaJsonParser.array"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitArray([NotNull] busquedaJsonParser.ArrayContext context);
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="busquedaJsonParser.valor"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitValor([NotNull] busquedaJsonParser.ValorContext context);
+	Result VisitInput([NotNull] busquedaJsonParser.InputContext context);
 }

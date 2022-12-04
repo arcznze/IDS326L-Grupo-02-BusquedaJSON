@@ -7,32 +7,17 @@ using System.Threading.Tasks;
 
 namespace busquedaJsonClass
 {
-    internal class busquedaJson : busquedaJsonBaseVisitor<object>
+    internal class busquedaJson : busquedaJsonBaseVisitor<int>
     {
-        public override object VisitArray([NotNull] busquedaJsonParser.ArrayContext context)
+        public override int VisitInput([NotNull] busquedaJsonParser.InputContext context)
         {
-            return base.VisitArray(context);
+            Console.WriteLine($"Posicion del elemento: {context.NUMERO()}");
+            return base.VisitInput(context);
         }
 
-        public override object VisitDatos([NotNull] busquedaJsonParser.DatosContext context)
+        public override int VisitProgram([NotNull] busquedaJsonParser.ProgramContext context)
         {
-            Console.WriteLine($"\"{context.GetText()}\"");
-            return base.VisitDatos(context);
-        }
-
-        public override object VisitJson([NotNull] busquedaJsonParser.JsonContext context)
-        {
-            return base.VisitJson(context);
-        }
-
-        public override object VisitObjeto([NotNull] busquedaJsonParser.ObjetoContext context)
-        {
-            return base.VisitObjeto(context);
-        }
-
-        public override object VisitValor([NotNull] busquedaJsonParser.ValorContext context)
-        {
-            return base.VisitValor(context);
+            return base.VisitProgram(context);
         }
     }
 }

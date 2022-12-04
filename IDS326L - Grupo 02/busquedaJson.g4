@@ -1,25 +1,12 @@
 grammar busquedaJson;
 
-program : (json)+ EOF ;
+program : input;
 
-json: valor;
+input: TEXTO (PUNTO TEXTO)* ('['NUMERO']')*;
 
-objeto: '{' datos (',' datos)* '}'
-   | '{' '}';
+TEXTO :[A-Za-z_]+;
+NUMERO:[0-9]+;
 
-datos: STRING ':' valor;
-
-array: '[' valor (',' valor)* ']'
-    | '[' ']';
-
-valor: STRING
-   | objeto
-   | array;
-
-STRING: '"' (TEXTO | MAGIAMANITO)* '"';
-
-TEXTO :'"'[A-Za-z_]+ '"';
-
-fragment MAGIAMANITO: ~ ["\\\u0000-\u001F] ;
+PUNTO : '.';
 
 WS: [ \t\n\r] + -> skip;
