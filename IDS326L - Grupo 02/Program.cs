@@ -29,6 +29,11 @@ namespace BusquedaJson
             Console.WriteLine("\nDigite la ubicacion del archivo: ");
             string path = Console.ReadLine();
 
+            while (path == "")
+            {
+                Console.WriteLine("\nDigite una ubicacion valida: ");
+                path = Console.ReadLine();
+            }
 
             Console.Clear();
 
