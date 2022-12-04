@@ -4,8 +4,9 @@ program : input;
 
 input: TEXTO (PUNTO TEXTO)* ('['NUMERO']')*;
 
-TEXTO :[A-Za-z_]+;
-NUMERO:[0-9]+;
+TEXTO: [A-Za-z_]+;
+NUMERO: [0-9]+;
+
 
 PUNTO : '.';
 
