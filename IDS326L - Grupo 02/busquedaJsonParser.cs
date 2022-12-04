@@ -36,18 +36,19 @@ public partial class busquedaJsonParser : Parser {
 	protected static DFA[] decisionToDFA;
 	protected static PredictionContextCache sharedContextCache = new PredictionContextCache();
 	public const int
-		T__0=1, T__1=2, TEXTO=3, NUMERO=4, PUNTO=5, WS=6;
+		T__0=1, T__1=2, TEXTO=3, NUMERO=4, DOBLEPUNTO=5, PUNTO=6, WS=7;
 	public const int
-		RULE_program = 0, RULE_input = 1;
+		RULE_program = 0, RULE_input = 1, RULE_property = 2, RULE_array = 3, RULE_primernumero = 4, 
+		RULE_segundonumero = 5;
 	public static readonly string[] ruleNames = {
-		"program", "input"
+		"program", "input", "property", "array", "primernumero", "segundonumero"
 	};
 
 	private static readonly string[] _LiteralNames = {
-		null, "'['", "']'", null, null, "'.'"
+		null, "'['", "']'", null, null, "':'", "'.'"
 	};
 	private static readonly string[] _SymbolicNames = {
-		null, null, null, "TEXTO", "NUMERO", "PUNTO", "WS"
+		null, null, null, "TEXTO", "NUMERO", "DOBLEPUNTO", "PUNTO", "WS"
 	};
 	public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);
 
@@ -82,8 +83,12 @@ public partial class busquedaJsonParser : Parser {
 	}
 
 	public partial class ProgramContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public InputContext input() {
-			return GetRuleContext<InputContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode Eof() { return GetToken(busquedaJsonParser.Eof, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public InputContext[] input() {
+			return GetRuleContexts<InputContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public InputContext input(int i) {
+			return GetRuleContext<InputContext>(i);
 		}
 		public ProgramContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -102,11 +107,26 @@ public partial class busquedaJsonParser : Parser {
 	public ProgramContext program() {
 		ProgramContext _localctx = new ProgramContext(Context, State);
 		EnterRule(_localctx, 0, RULE_program);
+		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 4;
-			input();
+			State = 13;
+			ErrorHandler.Sync(this);
+			_la = TokenStream.LA(1);
+			do {
+				{
+				{
+				State = 12;
+				input();
+				}
+				}
+				State = 15;
+				ErrorHandler.Sync(this);
+				_la = TokenStream.LA(1);
+			} while ( _la==T__0 || _la==TEXTO );
+			State = 17;
+			Match(Eof);
 			}
 		}
 		catch (RecognitionException re) {
@@ -121,17 +141,18 @@ public partial class busquedaJsonParser : Parser {
 	}
 
 	public partial class InputContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] TEXTO() { return GetTokens(busquedaJsonParser.TEXTO); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TEXTO(int i) {
-			return GetToken(busquedaJsonParser.TEXTO, i);
+		[System.Diagnostics.DebuggerNonUserCode] public PropertyContext[] property() {
+			return GetRuleContexts<PropertyContext>();
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] PUNTO() { return GetTokens(busquedaJsonParser.PUNTO); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PUNTO(int i) {
-			return GetToken(busquedaJsonParser.PUNTO, i);
+		[System.Diagnostics.DebuggerNonUserCode] public PropertyContext property(int i) {
+			return GetRuleContext<PropertyContext>(i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] NUMERO() { return GetTokens(busquedaJsonParser.NUMERO); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NUMERO(int i) {
-			return GetToken(busquedaJsonParser.NUMERO, i);
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PUNTO() { return GetToken(busquedaJsonParser.PUNTO, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ArrayContext[] array() {
+			return GetRuleContexts<ArrayContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ArrayContext array(int i) {
+			return GetRuleContext<ArrayContext>(i);
 		}
 		public InputContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -152,44 +173,253 @@ public partial class busquedaJsonParser : Parser {
 		EnterRule(_localctx, 2, RULE_input);
 		int _la;
 		try {
+			int _alt;
+			State = 35;
+			ErrorHandler.Sync(this);
+			switch (TokenStream.LA(1)) {
+			case TEXTO:
+				EnterOuterAlt(_localctx, 1);
+				{
+				State = 20;
+				ErrorHandler.Sync(this);
+				_alt = 1;
+				do {
+					switch (_alt) {
+					case 1:
+						{
+						{
+						State = 19;
+						property();
+						}
+						}
+						break;
+					default:
+						throw new NoViableAltException(this);
+					}
+					State = 22;
+					ErrorHandler.Sync(this);
+					_alt = Interpreter.AdaptivePredict(TokenStream,1,Context);
+				} while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER );
+				State = 25;
+				ErrorHandler.Sync(this);
+				_la = TokenStream.LA(1);
+				if (_la==PUNTO) {
+					{
+					State = 24;
+					Match(PUNTO);
+					}
+				}
+
+				}
+				break;
+			case T__0:
+				EnterOuterAlt(_localctx, 2);
+				{
+				State = 28;
+				ErrorHandler.Sync(this);
+				_alt = 1;
+				do {
+					switch (_alt) {
+					case 1:
+						{
+						{
+						State = 27;
+						array();
+						}
+						}
+						break;
+					default:
+						throw new NoViableAltException(this);
+					}
+					State = 30;
+					ErrorHandler.Sync(this);
+					_alt = Interpreter.AdaptivePredict(TokenStream,3,Context);
+				} while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER );
+				State = 33;
+				ErrorHandler.Sync(this);
+				_la = TokenStream.LA(1);
+				if (_la==PUNTO) {
+					{
+					State = 32;
+					Match(PUNTO);
+					}
+				}
+
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class PropertyContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TEXTO() { return GetToken(busquedaJsonParser.TEXTO, 0); }
+		public PropertyContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_property; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IbusquedaJsonVisitor<TResult> typedVisitor = visitor as IbusquedaJsonVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitProperty(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public PropertyContext property() {
+		PropertyContext _localctx = new PropertyContext(Context, State);
+		EnterRule(_localctx, 4, RULE_property);
+		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 6;
+			State = 37;
 			Match(TEXTO);
-			State = 11;
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class ArrayContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode DOBLEPUNTO() { return GetToken(busquedaJsonParser.DOBLEPUNTO, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public SegundonumeroContext segundonumero() {
+			return GetRuleContext<SegundonumeroContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public PrimernumeroContext primernumero() {
+			return GetRuleContext<PrimernumeroContext>(0);
+		}
+		public ArrayContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_array; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IbusquedaJsonVisitor<TResult> typedVisitor = visitor as IbusquedaJsonVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitArray(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public ArrayContext array() {
+		ArrayContext _localctx = new ArrayContext(Context, State);
+		EnterRule(_localctx, 6, RULE_array);
+		int _la;
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 39;
+			Match(T__0);
+			State = 41;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
-			while (_la==PUNTO) {
+			if (_la==NUMERO) {
 				{
-				{
-				State = 7;
-				Match(PUNTO);
-				State = 8;
-				Match(TEXTO);
+				State = 40;
+				primernumero();
 				}
-				}
-				State = 13;
-				ErrorHandler.Sync(this);
-				_la = TokenStream.LA(1);
 			}
-			State = 19;
-			ErrorHandler.Sync(this);
-			_la = TokenStream.LA(1);
-			while (_la==T__0) {
-				{
-				{
-				State = 14;
-				Match(T__0);
-				State = 15;
-				Match(NUMERO);
-				State = 16;
-				Match(T__1);
-				}
-				}
-				State = 21;
-				ErrorHandler.Sync(this);
-				_la = TokenStream.LA(1);
+
+			State = 43;
+			Match(DOBLEPUNTO);
+			State = 44;
+			segundonumero();
+			State = 45;
+			Match(T__1);
 			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class PrimernumeroContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NUMERO() { return GetToken(busquedaJsonParser.NUMERO, 0); }
+		public PrimernumeroContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_primernumero; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IbusquedaJsonVisitor<TResult> typedVisitor = visitor as IbusquedaJsonVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitPrimernumero(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public PrimernumeroContext primernumero() {
+		PrimernumeroContext _localctx = new PrimernumeroContext(Context, State);
+		EnterRule(_localctx, 8, RULE_primernumero);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 47;
+			Match(NUMERO);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class SegundonumeroContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NUMERO() { return GetToken(busquedaJsonParser.NUMERO, 0); }
+		public SegundonumeroContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_segundonumero; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IbusquedaJsonVisitor<TResult> typedVisitor = visitor as IbusquedaJsonVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitSegundonumero(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public SegundonumeroContext segundonumero() {
+		SegundonumeroContext _localctx = new SegundonumeroContext(Context, State);
+		EnterRule(_localctx, 10, RULE_segundonumero);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 49;
+			Match(NUMERO);
 			}
 		}
 		catch (RecognitionException re) {
@@ -205,25 +435,49 @@ public partial class busquedaJsonParser : Parser {
 
 	private static char[] _serializedATN = {
 		'\x3', '\x608B', '\xA72A', '\x8133', '\xB9ED', '\x417C', '\x3BE7', '\x7786', 
-		'\x5964', '\x3', '\b', '\x19', '\x4', '\x2', '\t', '\x2', '\x4', '\x3', 
-		'\t', '\x3', '\x3', '\x2', '\x3', '\x2', '\x3', '\x3', '\x3', '\x3', '\x3', 
-		'\x3', '\a', '\x3', '\f', '\n', '\x3', '\f', '\x3', '\xE', '\x3', '\xF', 
-		'\v', '\x3', '\x3', '\x3', '\x3', '\x3', '\x3', '\x3', '\a', '\x3', '\x14', 
-		'\n', '\x3', '\f', '\x3', '\xE', '\x3', '\x17', '\v', '\x3', '\x3', '\x3', 
-		'\x2', '\x2', '\x4', '\x2', '\x4', '\x2', '\x2', '\x2', '\x18', '\x2', 
-		'\x6', '\x3', '\x2', '\x2', '\x2', '\x4', '\b', '\x3', '\x2', '\x2', '\x2', 
-		'\x6', '\a', '\x5', '\x4', '\x3', '\x2', '\a', '\x3', '\x3', '\x2', '\x2', 
-		'\x2', '\b', '\r', '\a', '\x5', '\x2', '\x2', '\t', '\n', '\a', '\a', 
-		'\x2', '\x2', '\n', '\f', '\a', '\x5', '\x2', '\x2', '\v', '\t', '\x3', 
-		'\x2', '\x2', '\x2', '\f', '\xF', '\x3', '\x2', '\x2', '\x2', '\r', '\v', 
-		'\x3', '\x2', '\x2', '\x2', '\r', '\xE', '\x3', '\x2', '\x2', '\x2', '\xE', 
-		'\x15', '\x3', '\x2', '\x2', '\x2', '\xF', '\r', '\x3', '\x2', '\x2', 
-		'\x2', '\x10', '\x11', '\a', '\x3', '\x2', '\x2', '\x11', '\x12', '\a', 
-		'\x6', '\x2', '\x2', '\x12', '\x14', '\a', '\x4', '\x2', '\x2', '\x13', 
-		'\x10', '\x3', '\x2', '\x2', '\x2', '\x14', '\x17', '\x3', '\x2', '\x2', 
-		'\x2', '\x15', '\x13', '\x3', '\x2', '\x2', '\x2', '\x15', '\x16', '\x3', 
-		'\x2', '\x2', '\x2', '\x16', '\x5', '\x3', '\x2', '\x2', '\x2', '\x17', 
-		'\x15', '\x3', '\x2', '\x2', '\x2', '\x4', '\r', '\x15',
+		'\x5964', '\x3', '\t', '\x36', '\x4', '\x2', '\t', '\x2', '\x4', '\x3', 
+		'\t', '\x3', '\x4', '\x4', '\t', '\x4', '\x4', '\x5', '\t', '\x5', '\x4', 
+		'\x6', '\t', '\x6', '\x4', '\a', '\t', '\a', '\x3', '\x2', '\x6', '\x2', 
+		'\x10', '\n', '\x2', '\r', '\x2', '\xE', '\x2', '\x11', '\x3', '\x2', 
+		'\x3', '\x2', '\x3', '\x3', '\x6', '\x3', '\x17', '\n', '\x3', '\r', '\x3', 
+		'\xE', '\x3', '\x18', '\x3', '\x3', '\x5', '\x3', '\x1C', '\n', '\x3', 
+		'\x3', '\x3', '\x6', '\x3', '\x1F', '\n', '\x3', '\r', '\x3', '\xE', '\x3', 
+		' ', '\x3', '\x3', '\x5', '\x3', '$', '\n', '\x3', '\x5', '\x3', '&', 
+		'\n', '\x3', '\x3', '\x4', '\x3', '\x4', '\x3', '\x5', '\x3', '\x5', '\x5', 
+		'\x5', ',', '\n', '\x5', '\x3', '\x5', '\x3', '\x5', '\x3', '\x5', '\x3', 
+		'\x5', '\x3', '\x6', '\x3', '\x6', '\x3', '\a', '\x3', '\a', '\x3', '\a', 
+		'\x2', '\x2', '\b', '\x2', '\x4', '\x6', '\b', '\n', '\f', '\x2', '\x2', 
+		'\x2', '\x36', '\x2', '\xF', '\x3', '\x2', '\x2', '\x2', '\x4', '%', '\x3', 
+		'\x2', '\x2', '\x2', '\x6', '\'', '\x3', '\x2', '\x2', '\x2', '\b', ')', 
+		'\x3', '\x2', '\x2', '\x2', '\n', '\x31', '\x3', '\x2', '\x2', '\x2', 
+		'\f', '\x33', '\x3', '\x2', '\x2', '\x2', '\xE', '\x10', '\x5', '\x4', 
+		'\x3', '\x2', '\xF', '\xE', '\x3', '\x2', '\x2', '\x2', '\x10', '\x11', 
+		'\x3', '\x2', '\x2', '\x2', '\x11', '\xF', '\x3', '\x2', '\x2', '\x2', 
+		'\x11', '\x12', '\x3', '\x2', '\x2', '\x2', '\x12', '\x13', '\x3', '\x2', 
+		'\x2', '\x2', '\x13', '\x14', '\a', '\x2', '\x2', '\x3', '\x14', '\x3', 
+		'\x3', '\x2', '\x2', '\x2', '\x15', '\x17', '\x5', '\x6', '\x4', '\x2', 
+		'\x16', '\x15', '\x3', '\x2', '\x2', '\x2', '\x17', '\x18', '\x3', '\x2', 
+		'\x2', '\x2', '\x18', '\x16', '\x3', '\x2', '\x2', '\x2', '\x18', '\x19', 
+		'\x3', '\x2', '\x2', '\x2', '\x19', '\x1B', '\x3', '\x2', '\x2', '\x2', 
+		'\x1A', '\x1C', '\a', '\b', '\x2', '\x2', '\x1B', '\x1A', '\x3', '\x2', 
+		'\x2', '\x2', '\x1B', '\x1C', '\x3', '\x2', '\x2', '\x2', '\x1C', '&', 
+		'\x3', '\x2', '\x2', '\x2', '\x1D', '\x1F', '\x5', '\b', '\x5', '\x2', 
+		'\x1E', '\x1D', '\x3', '\x2', '\x2', '\x2', '\x1F', ' ', '\x3', '\x2', 
+		'\x2', '\x2', ' ', '\x1E', '\x3', '\x2', '\x2', '\x2', ' ', '!', '\x3', 
+		'\x2', '\x2', '\x2', '!', '#', '\x3', '\x2', '\x2', '\x2', '\"', '$', 
+		'\a', '\b', '\x2', '\x2', '#', '\"', '\x3', '\x2', '\x2', '\x2', '#', 
+		'$', '\x3', '\x2', '\x2', '\x2', '$', '&', '\x3', '\x2', '\x2', '\x2', 
+		'%', '\x16', '\x3', '\x2', '\x2', '\x2', '%', '\x1E', '\x3', '\x2', '\x2', 
+		'\x2', '&', '\x5', '\x3', '\x2', '\x2', '\x2', '\'', '(', '\a', '\x5', 
+		'\x2', '\x2', '(', '\a', '\x3', '\x2', '\x2', '\x2', ')', '+', '\a', '\x3', 
+		'\x2', '\x2', '*', ',', '\x5', '\n', '\x6', '\x2', '+', '*', '\x3', '\x2', 
+		'\x2', '\x2', '+', ',', '\x3', '\x2', '\x2', '\x2', ',', '-', '\x3', '\x2', 
+		'\x2', '\x2', '-', '.', '\a', '\a', '\x2', '\x2', '.', '/', '\x5', '\f', 
+		'\a', '\x2', '/', '\x30', '\a', '\x4', '\x2', '\x2', '\x30', '\t', '\x3', 
+		'\x2', '\x2', '\x2', '\x31', '\x32', '\a', '\x6', '\x2', '\x2', '\x32', 
+		'\v', '\x3', '\x2', '\x2', '\x2', '\x33', '\x34', '\a', '\x6', '\x2', 
+		'\x2', '\x34', '\r', '\x3', '\x2', '\x2', '\x2', '\t', '\x11', '\x18', 
+		'\x1B', ' ', '#', '%', '+',
 	};
 
 	public static readonly ATN _ATN =

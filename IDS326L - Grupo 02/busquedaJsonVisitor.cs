@@ -43,4 +43,28 @@ public interface IbusquedaJsonVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitInput([NotNull] busquedaJsonParser.InputContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="busquedaJsonParser.property"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitProperty([NotNull] busquedaJsonParser.PropertyContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="busquedaJsonParser.array"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitArray([NotNull] busquedaJsonParser.ArrayContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="busquedaJsonParser.primernumero"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitPrimernumero([NotNull] busquedaJsonParser.PrimernumeroContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="busquedaJsonParser.segundonumero"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitSegundonumero([NotNull] busquedaJsonParser.SegundonumeroContext context);
 }

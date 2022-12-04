@@ -1,13 +1,18 @@
 grammar busquedaJson;
 
-program : input;
+program : input+ EOF;
 
-input: TEXTO (PUNTO TEXTO)* ('['NUMERO']')*;
+input: property+ PUNTO? | array+ PUNTO?;
+
+property: TEXTO;
+array: '['primernumero? DOBLEPUNTO segundonumero']';
+primernumero: NUMERO;
+segundonumero: NUMERO;
 
 TEXTO: [A-Za-z_]+;
 NUMERO: [0-9]+;
 
-
+DOBLEPUNTO : ':';
 PUNTO : '.';
 
 WS: [ \t\n\r] + -> skip;
