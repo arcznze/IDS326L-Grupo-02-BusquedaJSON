@@ -13,6 +13,8 @@ namespace busquedaJsonClass
 
     internal class busquedaJson : busquedaJsonBaseVisitor<object>
     {
+        List<string> property = new List<string>();
+
         public override object VisitArray([NotNull] busquedaJsonParser.ArrayContext context)
         {
             return base.VisitArray(context);
@@ -20,6 +22,9 @@ namespace busquedaJsonClass
 
         public override object VisitInput([NotNull] busquedaJsonParser.InputContext context)
         {
+
+
+
             return base.VisitInput(context);
         }
 
@@ -35,13 +40,7 @@ namespace busquedaJsonClass
 
         public override object VisitProperty([NotNull] busquedaJsonParser.PropertyContext context)
         {
-            Console.WriteLine(context.GetText());
-            List<string> property = new List<string>();
-            for(int i = 0; i < context.GetText().Length; i++)
-            {
-                property.Add(context.GetText());
-                Console.WriteLine(property[i]);
-            }
+            property.Add(context.GetText());
 
             Console.WriteLine("Ingrese la direccion del archivo JSON: ");
             string path = Console.ReadLine();
@@ -51,13 +50,9 @@ namespace busquedaJsonClass
             //Console.WriteLine(json);
             var jsonDoc = JsonDocument.Parse(json);
             JsonElement elemento = jsonDoc.RootElement.GetProperty(property[0]);
-            JsonElement segundo = elemento.GetProperty("city");
+            Console.WriteLine(elemento.ToString());
 
-
-
-            Console.WriteLine($"\n{segundo}");
-
-            return context.GetText();
+            return property[0];
         }
 
         public override object VisitSegundonumero([NotNull] busquedaJsonParser.SegundonumeroContext context)
