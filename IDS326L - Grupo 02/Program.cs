@@ -1,7 +1,28 @@
 ﻿using Antlr4.Runtime;
 using busquedaJsonClass;
+using System.IO;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+
+//static JsonElement SearchElement(JsonElement inicialElement, string[] roadToElement)
+//{
+//    foreach (JsonProperty element in inicialElement.EnumerateObject())
+//    {
+//        if (element.Name == roadToElement[0])
+//        {
+//            if (roadToElement.Length > 1)
+//                return SearchElement(element.Value, roadToElement[1..]);
+//            else
+//                return element.Value;
+//        }
+//    }
+
+//    throw new Exception($"No se encontró el elemento {roadToElement[0]}");
+//}
+
+//static JsonElement GetFirstElement(JsonElement element) => element[0];
+//static JsonElement GetLastElement(JsonElement element) => element[-1];
+//static JsonElement GetElementPosition(JsonElement element, int index) => element[index];
 
 namespace BusquedaJson
 {
@@ -11,18 +32,29 @@ namespace BusquedaJson
         {
             //var expresion = "menu.popup.menuitem[1]";
 
+            string expression = "";
             Console.WriteLine("Digite su expresion: ");
-            string expresion = Console.ReadLine();
+            do
+            {
+                expression = Console.ReadLine();
+                if(expression == "")
+                {
+                    Console.WriteLine("\nDigite una expresion valida: ");
+                }else if(expression == null)
+                {
+                    Console.WriteLine("\nNo se permiten expresiones nulas");
+                }
+            } while (String.IsNullOrEmpty(expression));
 
-            //var inputStream = new AntlrInputStream(expresion);
-            //var busquedaJsonLexer = new busquedaJsonLexer(inputStream);
-            //var commonTokenStream = new CommonTokenStream(busquedaJsonLexer);
-            //var busquedaJsonParser = new busquedaJsonParser(commonTokenStream);
-            //var busquedaJsonContext = busquedaJsonParser.program();
-            //var visitor = new busquedaJson();
-            //visitor.Visit(busquedaJsonContext);
+                //var inputStream = new AntlrInputStream(expresion);
+                //var busquedaJsonLexer = new busquedaJsonLexer(inputStream);
+                //var commonTokenStream = new CommonTokenStream(busquedaJsonLexer);
+                //var busquedaJsonParser = new busquedaJsonParser(commonTokenStream);
+                //var busquedaJsonContext = busquedaJsonParser.program();
+                //var visitor = new busquedaJson();
+                //visitor.Visit(busquedaJsonContext);
 
-            ICharStream stream = CharStreams.fromString(expresion);
+            ICharStream stream = CharStreams.fromString(expression);
             busquedaJsonLexer lexer = new busquedaJsonLexer(stream);
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             busquedaJsonParser parser = new busquedaJsonParser(tokens);

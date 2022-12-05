@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using System.Linq.Expressions;
 
 namespace busquedaJsonClass
 {
@@ -42,8 +43,20 @@ namespace busquedaJsonClass
         {
             property.Add(context.GetText());
 
+            string path = "";
             Console.WriteLine("Ingrese la direccion del archivo JSON: ");
-            string path = Console.ReadLine();
+            do
+            {
+                path = Console.ReadLine();
+                if (path  == "")
+                {
+                    Console.WriteLine("\nDigite una ubicacion valida: ");
+                }
+                else if (path == null)
+                {
+                    Console.WriteLine("\nValor nulo no valido");
+                }
+            } while (String.IsNullOrEmpty(path));
 
             StreamReader r = new StreamReader(path);
             string json = r.ReadToEnd();
